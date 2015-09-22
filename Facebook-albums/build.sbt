@@ -1,4 +1,4 @@
-name := "Facebook-albums"
+name := "Facebook-getAlbums"
 
 version := "1.0-SNAPSHOT"
 

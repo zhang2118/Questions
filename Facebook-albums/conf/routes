@@ -7,8 +7,13 @@ GET        /                    controllers.Application.index(code: String ?=nul
 
 GET        /login               controllers.Application.login()
 
-GET        /albums               controllers.Application.albums()
+GET        /getAlbums           controllers.Application.getAlbums()
 
+GET        /albums              controllers.Application.albums()
+
+GET        /album/:id           controllers.Application.album(id: Long)
+
+GET         /:id/picture          controllers.Application.getThumbnailUrl(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
