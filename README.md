@@ -28,7 +28,18 @@ Go to the project directory. Tap `play` to launch play console. Then enter `run`
 
 There are 4 views in this application. Login view, Album list view, Album detail view and Photo view. <br />
 
+1. Login view allows user to signin by using their facebook account. By clicking on *Login with facebook* button, the page will redirect to Facebook website. The user need to approve the permissions that this application asked for. Three permissions are indispensable to guarantee the application fonctionalites, which are public profile, user photos and publish actions. <br /> 
 
+Once the user approved all permissions, the page will be redirected to another page */getAlbums*
+
+2. Here we can see the second view of this application the Album list view. On the view, the user can choose one album from a list of albums. The albums' name, created time, number of likes and the number of comments will be shown as well. 
+
+3. When the user chose a album, the second view, Album detail view, will be presented. On this view, the photos in this corresponded album will be rendered along with the detail information of the album.
+
+4. When user clicks on a photo, the photo view shows. The photo size is enlarged. Otherwise, user can add a comment on this photo. 
+
+P.S. 
+User can always go to previous page by clicking the *Back* button on the top of page.
 
 
 
