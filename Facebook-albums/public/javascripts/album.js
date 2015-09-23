@@ -5,6 +5,7 @@ var albumApp = angular.module('albumApp', []);
 
 albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope){
 
+    $scope.showController={1: true, 2: false, 3:false};
     $scope.albumPhotoList=[];
     $scope.albumList =[];
     $scope.selectedAlbum = {};
@@ -17,6 +18,11 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
 
     this.selectAlbum = function (id){
         var selectedAlbum = "";
+
+        $scope.showController[1] = false;
+        $scope.showController[2] = true;
+        $scope.showController[3] = false;
+        $scope.currentPageIndex = 2;
         angular.forEach($scope.albumList, function(album, index){
             if(album.id === id){
                 $scope.selectedAlbum = album;
@@ -28,7 +34,28 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
             this.getCorrespondedAlbum($scope.selectedAlbum);
         }
     }
+    $scope.currentPageIndex = 1;
+    this.updateCurrentPageIndex = function(){
+        if($scope.currentPageIndex <= 1) {
+            return;
+        }
+        else {
+            $scope.currentPageIndex --;
+            if($scope.currentPageIndex == 2){
+                $scope.selectedPhoto = {};
+            }else if($scope.currentPageIndex ==1){
+                $scope.selectedAlbum = {};
+            }
+            angular.forEach($scope.showController, function(page, index){
+                if(parseInt(index) == $scope.currentPageIndex){
+                    $scope.showController[parseInt(index)] = true;
+                }else{
+                    $scope.showController[parseInt(index)] = false;
+                }
 
+            });
+        }
+    }
     this.updateAlbum = function(){
         $http.post("/album?album="+JSON.stringify($scope.selectedAlbum)).then(
             function(response){
@@ -41,6 +68,10 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
     }
     this.selectPhoto = function(photo){
         console.log(photo);
+        $scope.showController[1] = false;
+        $scope.showController[2] = false;
+        $scope.showController[3] = true;
+        $scope.currentPageIndex = 3;
         $scope.selectedPhoto = photo;
     }
     $scope.currentComment = "";

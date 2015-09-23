@@ -34,9 +34,10 @@ public class AlbumController extends Controller {
             List<Album> albumList = facebook.getAlbums();
             return ok(toJson(albumList));
         }catch (FacebookException e){
+            Http.Context.current().session().clear();
             logger.error(e.getMessage());
         }
-        return notFound("");
+        return redirect("/");
     }
     public static Result album(Long id){
         if (id == null){

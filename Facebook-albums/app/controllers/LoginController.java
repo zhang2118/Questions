@@ -44,7 +44,7 @@ public class LoginController extends Controller {
     }
 
     public static Result login(){
-        return redirect("https://www.facebook.com/dialog/oauth?client_id=908722389217808&redirect_uri=http://localhost:9000&scope=email,user_photos");
+        return redirect("https://www.facebook.com/dialog/oauth?client_id=908722389217808&redirect_uri=http://localhost:9000&scope=email,user_photos,publish_actions");
     }
 
 
