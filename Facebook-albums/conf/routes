@@ -3,17 +3,23 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.Application.index(code: String ?=null)
+GET           /                    controllers.LoginController.index(code: String ?=null)
 
-GET        /login               controllers.Application.login()
+GET           /login               controllers.LoginController.login()
 
-GET        /getAlbums           controllers.Application.getAlbums()
+GET           /getAlbums           controllers.AlbumController.getAlbums()
 
-GET        /albums              controllers.Application.albums()
+GET           /albums              controllers.AlbumController.getAlbumList()
 
-GET        /album/:id           controllers.Application.album(id: Long)
+GET           /album/:id           controllers.AlbumController.album(id: Long)
 
-GET         /:id/picture          controllers.Application.getThumbnailUrl(id: Long)
+DELETE        /album/:id           controllers.AlbumController.deleteAlbum(id:Long)
+
+POST          /album               controllers.AlbumController.updateAlbum(album:String)
+
+GET           /:id/picture         controllers.PhotoController.getThumbnailUrl(id: Long)
+
+POST          /comment             controllers.CommentController.addCommentOnPhoto(photoId: String, comment: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET           /assets/*file        controllers.Assets.at(path="/public", file)

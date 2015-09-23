@@ -7,10 +7,10 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
 
     $scope.albumPhotoList=[];
     $scope.albumList =[];
-
+    $scope.selectedAlbum = {};
     $http.get('/albums').then(function(response) {
         console.log(response);
-        $scope.albumList = response.data.data;
+        $scope.albumList = response.data;
     }, function(response) {
         console.log(response);
     });
@@ -19,25 +19,49 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
         var selectedAlbum = "";
         angular.forEach($scope.albumList, function(album, index){
             if(album.id === id){
-                selectedAlbum = album;
+                $scope.selectedAlbum = album;
             }else{
                 return;
             }
         });
-        if(selectedAlbum !== null && selectedAlbum !== undefined){
-            this.getCorrespondedAlbum(selectedAlbum);
+        if($scope.selectedAlbum !== null && $scope.selectedAlbum !== undefined){
+            this.getCorrespondedAlbum($scope.selectedAlbum);
         }
+    }
+
+    this.updateAlbum = function(){
+        $http.post("/album?album="+JSON.stringify($scope.selectedAlbum)).then(
+            function(response){
+                console.log(response);
+            },
+            function(response){
+                console.log(response);
+            }
+        );
+    }
+    this.selectPhoto = function(photo){
+        console.log(photo);
+        $scope.selectedPhoto = photo;
+    }
+    $scope.currentComment = "";
+
+    this.submitComment = function(){
+        $http.post("/comment?photoId="+$scope.selectedPhoto.id+"&comment="+$scope.currentComment)
+            .then(function(response){
+                console.log(response);
+            },function(response){
+                console.log(response);
+        });
     }
 
     this.getCorrespondedAlbum = function(album){
         $http.get("/album/"+album.id, {id: album.id})
             .then(function(response){
-                console.log(response.data.data);
-                $scope.albumPhotoList = response.data.data;
+                console.log(response.data);
+                $scope.albumPhotoList = response.data;
                 angular.forEach($scope.albumPhotoList, function(photo, index){
                     $http.get("/"+ photo.id+"/picture").then(
                         function(resp){
-                            //console.log(resp.data);
                             $scope.albumPhotoList[index].url = resp.data;
                         },
                         function(resp){
@@ -46,7 +70,7 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
                     );
                 });
             },function(response){
-                console.log(response.data.data);
+                console.log(response.data);
             });
     }
 

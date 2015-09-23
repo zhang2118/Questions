@@ -10,7 +10,7 @@
     <script src="@routes.Assets.at("javascripts/album.js")" type="text/javascript"></script>
 </head>
 <body ng-controller="AlbumController as albumCtrl">
-    <div class="albums-container" >
+    <div class="getAlbumList-container" >
         <ul>
             <li ng-repeat="album in albumList" >
                 <a ng-click="albumCtrl.selectAlbum(album.id)">{{album.name}}</a>
@@ -19,14 +19,39 @@
         </ul>
     </div>
     <div class="album-detail-view">
+        <div>
+            <div><input name="name" value="{{selectedAlbum.name}}" ng-model="selectedAlbum.name"/></div>
+            <div>{{selectedAlbum.createdTime | date: date:"MM/dd/yyyy 'at' h:mma" }}</div>
+            <div>{{selectedAlbum.likes.length}}</div>
+            <div>{{selectedAlbum.place}}</div>
+            <div><input type="button" class="btn btn-primary" value="update" ng-click="albumCtrl.updateAlbum()"></div>
+        </div>
         <ul>
             <li ng-repeat="photo in albumPhotoList">
                 <a ng-click="albumCtrl.selectPhoto(photo)">
                     <img src="{{photo.url}}"/>
-                    <a>{{photo.name}}</a>
+                    <div>{{photo.name}}</div>
+                    <div>{{photo.createdTime | date: date:"MM/dd/yyyy 'at' h:mma" }}</div>
+                    <div>{{photo.likes.length}}</div>
+                    <div>{{photo.comments.length}}</div>
                 </a>
             </li>
         </ul>
+        <div>
+            <img src="{{selectedPhoto.url}}"/>
+            <div>
+                <ul>
+                    <li ng-repeat="comment in selectedPhoto.comments">
+
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <input type="text" ng-model="currentComment" />
+                <input type="button" value="Submit comment" ng-click="albumCtrl.submitComment()"/>
+            </div>
+
+        </div>
     </div>
 </body>
 </html>
