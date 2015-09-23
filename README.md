@@ -1,5 +1,4 @@
-#
-Facebook Photo Albums
+#Facebook Photo Albums
 
 Facebook Photo Album is an assignment from Social Orra Inc. This is a part of job interview. They ask me to implement a web application by using mainly Angular.js, Facebook4j and Play framework on Java. In order to create a user-friendly interface, I used Bootstrap css. 
 

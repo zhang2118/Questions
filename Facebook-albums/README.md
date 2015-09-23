@@ -1,5 +1,4 @@
-#
-Facebook albums
+#Facebook albums
 
 This document aims to introduce the project stucture.
 
