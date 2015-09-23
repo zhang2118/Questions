@@ -5,10 +5,19 @@ var albumApp = angular.module('albumApp', []);
 
 albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope){
 
+    //Javascript object used to control hide and show of div element
     $scope.showController={1: true, 2: false, 3:false};
+
+    //PhotoList of the selected album.
     $scope.albumPhotoList=[];
+
+    //The album list of the user.
     $scope.albumList =[];
+
+    //The selected album.
     $scope.selectedAlbum = {};
+
+    //Get operation on the server, in order to retrieve all albums.
     $http.get('/albums').then(function(response) {
         console.log(response);
         $scope.albumList = response.data;
@@ -16,9 +25,9 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
         console.log(response);
     });
 
-    this.selectAlbum = function (id){
-        var selectedAlbum = "";
 
+    //Method will be invoked when user select an album.
+    this.selectAlbum = function (id){
         $scope.showController[1] = false;
         $scope.showController[2] = true;
         $scope.showController[3] = false;
@@ -34,7 +43,11 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
             this.getCorrespondedAlbum($scope.selectedAlbum);
         }
     }
+
+    //Indicator of the page number, which is used to control hide and show of views.
     $scope.currentPageIndex = 1;
+
+    //When user hit back button, update indicator of page number.
     this.updateCurrentPageIndex = function(){
         if($scope.currentPageIndex <= 1) {
             return;
@@ -56,6 +69,8 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
             });
         }
     }
+
+    //Aiming to provide update operation to corresponded album, but not working for now.
     this.updateAlbum = function(){
         $http.post("/album?album="+JSON.stringify($scope.selectedAlbum)).then(
             function(response){
@@ -66,6 +81,8 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
             }
         );
     }
+
+    //Invoked when user selected a photo.
     this.selectPhoto = function(photo){
         console.log(photo);
         $scope.showController[1] = false;
@@ -74,12 +91,16 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
         $scope.currentPageIndex = 3;
         $scope.selectedPhoto = photo;
     }
+
+    //The last comment the user entered. This is the comment on photos.
     $scope.currentComment = "";
 
+    //Aiming to provide deletion operation to user, not workign for now
     this.deleteAlbum = function(){
         $http.delete("/album?id="+$scope.selectedAlbum.id);
     }
 
+    //Submit comment on photo and publish on Facebook.
     this.submitComment = function(){
         $http.post("/comment?photoId="+$scope.selectedPhoto.id+"&comment="+$scope.currentComment)
             .then(function(response){
@@ -90,6 +111,7 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
         });
     }
 
+    //Get photo list of a specific album.
     this.getCorrespondedAlbum = function(album){
         $http.get("/album/"+album.id, {id: album.id})
             .then(function(response){

@@ -17,6 +17,9 @@ public class CommentController extends Controller{
 
     final static Logger logger = LoggerFactory.getLogger(CommentController.class);
 
+    /*
+    * This method allows user to add comment on a photo.
+    * */
     public static Result addCommentOnPhoto(String photoId, String comment) {
          if(photoId != null && comment != null){
              String accessToken = Http.Context.current().session().get("access_token").toString();

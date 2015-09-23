@@ -7,6 +7,8 @@ GET           /                    controllers.LoginController.index(code: Strin
 
 GET           /login               controllers.LoginController.login()
 
+# Album page
+
 GET           /getAlbums           controllers.AlbumController.getAlbums()
 
 GET           /albums              controllers.AlbumController.getAlbumList()

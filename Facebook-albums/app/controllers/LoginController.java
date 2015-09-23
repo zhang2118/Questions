@@ -14,9 +14,13 @@ public class LoginController extends Controller {
 
     final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    /*
+    * This method is the entry method of this application.
+    * */
     public static Result index(String code) {
+        //Test if this is the first request or redirect request from Facebook
         if (code != null && !Http.Context.current().session().containsKey("access_token")){
-            //get OAuthToken
+            //request for OAuthToken from Facebook by using code received from Facebook
             logger.debug(code);
             return async(
                     WS.url("https://graph.facebook.com/v2.3/oauth/access_token")
@@ -37,12 +41,17 @@ public class LoginController extends Controller {
                     )
             );
 
+        // If the user is already logged in, the user will be redirected to album list view
         }else if(Http.Context.current().session().containsKey("access_token")){
             return redirect("/getAlbums");
         }
         return ok(index.render(""));
     }
 
+    /*
+    * When user clicks on `Login with Facebook` button, this method will be call.
+    * It starts a redirect request to Facebook, where the user can approve the permissions asked.
+    * */
     public static Result login(){
         return redirect("https://www.facebook.com/dialog/oauth?client_id=908722389217808&redirect_uri=http://localhost:9000&scope=email,user_photos,publish_actions");
     }
