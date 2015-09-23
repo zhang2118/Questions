@@ -76,10 +76,15 @@ albumApp.controller('AlbumController', ['$http','$scope', function($http, $scope
     }
     $scope.currentComment = "";
 
+    this.deleteAlbum = function(){
+        $http.delete("/album?id="+$scope.selectedAlbum.id);
+    }
+
     this.submitComment = function(){
         $http.post("/comment?photoId="+$scope.selectedPhoto.id+"&comment="+$scope.currentComment)
             .then(function(response){
                 console.log(response);
+                alert("comment added")
             },function(response){
                 console.log(response);
         });

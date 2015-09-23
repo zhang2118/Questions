@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>getAlbums-container</title>
     <script src="@routes.Assets.at("javascripts/vendor/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.at("javascripts/vendor/angular.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("../../public/javascripts/vendor/angular-1.4.6.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("javascripts/album.js")" type="text/javascript"></script>
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")"/>
 </head>
@@ -14,7 +14,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Facebook Photos</a>
+                <a class="navbar-brand" href="/">Facebook Photos</a>
                 <button class="btn btn-primary navbar-btn" ng-click="albumCtrl.updateCurrentPageIndex()" ng-hide="currentPageIndex == 1">Back</button>
             </div>
         </div>
@@ -47,7 +47,10 @@
                     <label for="name">Place:</label>
                     <div>{{selectedAlbum.place}}</div>
                 </div>
-                <div><input type="button" class="btn btn-primary" value="update" ng-click="albumCtrl.updateAlbum()"></div>
+                <div>
+                    <input type="button" class="btn btn-primary" value="update" ng-click="albumCtrl.updateAlbum()">
+                    <input type="button" class="btn btn-danger" value="delete" ng-click="albumCtrl.deleteAlbum()">
+                </div>
             </div>
             <div class="media" ng-repeat="photo in albumPhotoList">
                 <div class="media-left">
@@ -57,9 +60,6 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">{{photo.name}}</h4>
-                    @*<div>{{photo.createdTime | date: date:"MM/dd/yyyy 'at' h:mma" }}</div>*@
-                    @*<div>{{photo.likes.length}}</div>*@
-                    @*<div>{{photo.comments.length}}</div>*@
                 </div>
             </div>
         </div>

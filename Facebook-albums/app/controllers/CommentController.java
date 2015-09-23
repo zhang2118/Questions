@@ -29,6 +29,7 @@ public class CommentController extends Controller{
                  logger.error(e.getMessage());
                  return internalServerError();
              }
+             return ok();
          }
         return ok();
     }
